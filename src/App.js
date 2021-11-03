@@ -39,7 +39,7 @@ function App() {
   const [wage_sunday_comp, setWage_sunday_comp] = useState(0); //calculated in useEffect, also the hourly pay
   const [wage_employee_pension, setWage_employee_pension] = useState(0.0719);
   const [wage_unemployment_insurance, setWage_unemployment_insurance] = useState(0.0136);
-  const [wage_tax_percent, setWage_tax_percent] = useState(0.2);
+  const [wage_tax_percent, setWage_tax_percent] = useState(0.288);
 
 
 
@@ -98,7 +98,7 @@ function App() {
                 <label>
                   Base wage<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={wage_base}
                     onChange={event => setWage_base(event.target.value)}
                   />
@@ -107,7 +107,7 @@ function App() {
                 <label>
                   Day shifts between Mon - Sat<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_day_mon_sat}
                     onChange={event => setShift_day_mon_sat(event.target.value)}
                   />
@@ -116,7 +116,7 @@ function App() {
                 <label>
                   Night shifts between Mon - Fri<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_night_mon_fri}
                     onChange={event => setShift_night_mon_fri(event.target.value)}
                   />
@@ -125,7 +125,7 @@ function App() {
                 <label>
                   Saturday night shifts<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_night_sat}
                     onChange={event => setShift_night_sat(event.target.value)}
                   />
@@ -134,7 +134,7 @@ function App() {
                 <label>
                   Sunday day shifts<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_day_sun}
                     onChange={event => setShift_day_sun(event.target.value)}
                   />
@@ -143,7 +143,7 @@ function App() {
                 <label>
                   Sunday night shifts<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_night_sun}
                     onChange={event => setShift_night_sun(event.target.value)}
                   />
@@ -152,7 +152,7 @@ function App() {
                 <label>
                   Public holidays<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_public_holiday}
                     onChange={event => setShift_public_holiday(event.target.value)}
                   />
@@ -176,7 +176,7 @@ function App() {
                 <label>
                   Overtime 50%<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_overtime_50}
                     onChange={event => setShift_overtime_50(event.target.value)}
                   />
@@ -185,7 +185,7 @@ function App() {
                 <label>
                   Overtime 100%<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_overtime_100}
                     onChange={event => setShift_overtime_100(event.target.value)}
                   />
@@ -194,7 +194,7 @@ function App() {
                 <label>
                   Overtime 150%<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_overtime_150}
                     onChange={event => setShift_overtime_150(event.target.value)}
                   />
@@ -203,7 +203,7 @@ function App() {
                 <label>
                   Overtime 200%<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_overtime_200}
                     onChange={event => setShift_overtime_200(event.target.value)}
                   />
@@ -212,7 +212,7 @@ function App() {
                 <label>
                   Evening overtime hours<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_overtime_evening}
                     onChange={event => setShift_overtime_evening(event.target.value)}
                   />
@@ -221,7 +221,7 @@ function App() {
                 <label>
                   Night overtime hours<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_overtime_night}
                     onChange={event => setShift_overtime_night(event.target.value)}
                   />
@@ -230,7 +230,7 @@ function App() {
                 <label>
                   Additional wage increments<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={shift_additional_increments}
                     onChange={event => setShift_additional_increments(event.target.value)}
                   />
@@ -254,7 +254,7 @@ function App() {
                   <label>
                   Evening compensation<br/>
                   <input
-                    type="number"
+                    type="text"
                     value={wage_evening_comp}
                     onChange={event => setWage_evening_comp(event.target.value)}
                   />
@@ -263,7 +263,7 @@ function App() {
                   <label>
                     Night compensation<br/>
                     <input
-                      type="number"
+                      type="text"
                       value={wage_night_comp}
                       onChange={event => setWage_night_comp(event.target.value)}
                     />
@@ -272,7 +272,7 @@ function App() {
                   <label>
                     Tax percent<br/>
                     <input
-                      type="number"
+                      type="text"
                       value={wage_tax_percent}
                       onChange={event => setWage_tax_percent(event.target.value)}
                     />
@@ -281,7 +281,7 @@ function App() {
                   <label>
                     Employee pension<br/>
                     <input
-                      type="number"
+                      type="text"
                       value={wage_employee_pension}
                       onChange={event => setWage_employee_pension(event.target.value)}
                     />
@@ -290,7 +290,7 @@ function App() {
                   <label>
                     Unemployment insurance<br/>
                     <input
-                      type="number"
+                      type="text"
                       value={wage_unemployment_insurance}
                       onChange={event => setWage_unemployment_insurance(event.target.value)}
                     />
