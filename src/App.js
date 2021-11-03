@@ -44,12 +44,12 @@ function App() {
 
 
   useEffect(() => {    // Update the document title using the browser API   
-    document.title = `You're getting paid ${wage_total}€`;  
+    document.title = `You're getting paid ${wage_total.toFixed(2)}€`;  
 
     //setWage_tax_percent(wage_base * 2);
     setWage_sunday_comp(Number(wage_base/157.95868));
 
-    setWage_total(Number(wage_base + Number(wage_increments_total)));
+    setWage_total(Number(wage_base) + Number(wage_increments_total));
     setWage_taxes_total (Number(wage_total * (Number(wage_employee_pension) + Number(wage_unemployment_insurance) + Number(wage_tax_percent))));
     setWage_increments_total(
       (Number(shift_day_mon_sat) * Number(wage_evening_comp)) //mon-sat day
@@ -60,7 +60,7 @@ function App() {
     + (Number(shift_public_holiday) * (Number(wage_evening_comp) * 3 + Number(wage_night_comp) * 8 + Number(wage_sunday_comp) * 12))
     + (Number(shift_overtime_50) * (Number(wage_sunday_comp) * 1.5))
     + (Number(shift_overtime_100) * (Number(wage_sunday_comp) * 2))
-    + (Number(shift_overtime_150) * (Number(wage_sunday_comp) * 2,5))
+    + (Number(shift_overtime_150) * (Number(wage_sunday_comp) * 2.5))
     + (Number(shift_overtime_200) * (Number(wage_sunday_comp) * 3))
     + (Number(shift_overtime_evening) * Number(wage_evening_comp))
     + (Number(shift_overtime_night) * Number(wage_night_comp))
@@ -69,14 +69,18 @@ function App() {
 
   },[wage_total, wage_base, wage_evening_comp, wage_employee_pension, wage_unemployment_insurance, wage_tax_percent, shift_day_mon_sat, shift_night_mon_fri, wage_night_comp, wage_increments_total, shift_additional_increments, shift_day_sun, shift_night_sat, shift_night_sun, shift_overtime_50, shift_overtime_evening, shift_overtime_night, shift_public_holiday, wage_sunday_comp, shift_overtime_100, shift_overtime_150, shift_overtime_200]);
 
+  function toFixed( num, precision ) {
+    return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <p>Wage before taxes {wage_total} <br/>
-        Taxes {wage_taxes_total}<br/>
-        Wage increments {wage_increments_total}<br/>
-        Wage after taxes {wage_total - wage_taxes_total}<br/>
-        Hourly wage {wage_sunday_comp}</p>
+        <p>Wage before taxes {toFixed(wage_total, 2)} <br/>
+        Taxes {toFixed(wage_taxes_total, 2)}<br/>
+        Wage increments {toFixed(wage_increments_total, 2)}<br/>
+        Wage after taxes {toFixed((wage_total - wage_taxes_total), 2)}<br/>
+        Hourly wage {toFixed(wage_sunday_comp, 2)}</p>
         <hr/>
 
         <div>
