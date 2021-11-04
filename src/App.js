@@ -7,6 +7,13 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+import {
+  Chart,
+  PieSeries  
+} from '@devexpress/dx-react-chart-material-ui';
+import { Animation, EventTracker, HoverState } from '@devexpress/dx-react-chart';
+
 function App() {
 
   const [wage_total, setWage_total] = useState(0);
@@ -39,9 +46,9 @@ function App() {
   const [wage_sunday_comp, setWage_sunday_comp] = useState(0); //calculated in useEffect, also the hourly pay
   const [wage_employee_pension, setWage_employee_pension] = useState(0.0719);
   const [wage_unemployment_insurance, setWage_unemployment_insurance] = useState(0.0136);
-  const [wage_tax_percent, setWage_tax_percent] = useState(0.288);
+  const [wage_tax_percent, setWage_tax_percent] = useState(0.2);
 
-
+  const piechart_data = [{type: 'Base wage', value: Number(wage_base) - ((Number(wage_base) * (Number(wage_employee_pension) + Number(wage_unemployment_insurance) + Number(wage_tax_percent))))},{type: 'Increments', value: Number(wage_increments_total) - ((Number(wage_increments_total) * (Number(wage_employee_pension) + Number(wage_unemployment_insurance) + Number(wage_tax_percent))))}, {type: 'Taxes', value: wage_taxes_total}];
 
   useEffect(() => {    // Update the document title using the browser API   
     document.title = `You're getting paid ${wage_total.toFixed(2)}€`;  
@@ -73,18 +80,65 @@ function App() {
     return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision);
   }
 
+  const [wageFontColor, setWageFontColor] = useState('white'); 
+  const [incrementFontColor, setIncrementFontColor] = useState('white'); 
+  const [taxFontColor, setTaxFontColor] = useState('white');  
+
+  function test (evt)
+  {
+    try {
+      if (evt.point===0)
+      {
+        setWageFontColor('black')
+        setIncrementFontColor('white')
+        setTaxFontColor('white')
+      }
+      else if (evt.point===1)
+      {
+        setWageFontColor('white')
+        setIncrementFontColor('black')
+        setTaxFontColor('white')
+      }
+      else if (evt.point===2)
+      {
+        setWageFontColor('white')
+        setIncrementFontColor('white')
+        setTaxFontColor('black')
+      }
+    }
+    catch(e) { setWageFontColor('white'); setIncrementFontColor('white'); setTaxFontColor('white');} //Clear all
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <p>Wage before taxes {toFixed(wage_total, 2)} <br/>
-        Taxes {toFixed(wage_taxes_total, 2)}<br/>
-        Wage increments {toFixed(wage_increments_total, 2)}<br/>
-        Wage after taxes {toFixed((wage_total - wage_taxes_total), 2)}<br/>
-        Hourly wage {toFixed(wage_sunday_comp, 2)}</p>
+        <span>Wage before taxes {toFixed(wage_total, 2)}</span>
+        <Chart
+          data={piechart_data}
+          height={200}
+          width={200}
+        >
+          <PieSeries 
+            valueField="value" 
+            argumentField="type" 
+            innerRadius={0.8}
+            outerRadius={1}
+            />
+          <Animation />
+          <EventTracker />
+          <HoverState onHoverChange={test} />
+          
+        </Chart>
+
+        <span style={{ color: wageFontColor, fontSize: '20px' }}> Wage after taxes {toFixed((wage_total - wage_taxes_total), 2)}</span>
+        <span style={{ color: taxFontColor, fontSize: '20px'  }}> Taxes {toFixed(wage_taxes_total, 2)} </span>
+        <span style={{ color: incrementFontColor, fontSize: '20px'  }}> Wage increments {toFixed(wage_increments_total, 2)}</span>
+
+        <span style={{ fontSize: '20px'  }}> Hourly wage {toFixed(wage_sunday_comp, 2)}</span>
         <hr/>
 
         <div>
-          <Accordion defaultExpanded>
+          <Accordion defaultExpanded> 
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
